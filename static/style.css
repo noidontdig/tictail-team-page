@@ -1,0 +1,50 @@
+body {
+  background: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+  padding: 30px;
+}
+
+a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+  margin: 0 0 15px;
+  padding: 0;
+}
+
+p, ul {
+  margin: 15px 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tr:first-child {
+  background-color: #dddddd;
+}
+
+tr:hover {
+  background-color: #dddddd;
+}
+
+#content {
+  margin: 50px auto;
+  max-width: 700px;
+}
+

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tictail Team</title>
+    <link rel="stylesheet" href="static/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <script type="text/jsx">
+
+    var TeamManager = React.createClass({
+      handleDelete: function (id, index) {
+        var team = this.state.team;
+        team.splice(index, 1);
+        this.setState({team: team});
+
+        $.ajax({
+          url: 'contacts/' + id,
+          dataType: 'json',
+          type: 'DELETE',
+          cache: false,
+          success: function (data) {
+            console.log('success');
+          }.bind(this),
+          error: function (xhr, status, err) {
+            // TODO: better error handling
+            console.error(this.props.url, status, err.toString());
+          }.bind(this)
+        });
+      },
+      getInitialState: function () {
+        return {team: []};
+      },
+      componentDidMount: function () {
+        $.ajax({
+          url: this.props.url,
+          dataType: 'json',
+          cache: false,
+          success: function (data) {
+            this.setState({team: data});
+          }.bind(this),
+          error: function (xhr, status, err) {
+            // TODO: better error handlind
+            console.error(this.props.url, status, err.toString());
+          }.bind(this)
+        });
+      },
+      render: function () {
+        return (
+          <div className="teamManager">
+            <h1>Manage the Tictail team</h1>
+            <button className="add">Add new member</button>
+            <TeamMemberList onDeleteMember={this.handleDelete} team={this.state.team} />
+          </div>
+        );
+      }
+    });
+
+    var TeamMemberList = React.createClass({
+      handleDelete: function (id, index) {
+        this.props.onDeleteMember(id, index);
+      },
+      render: function () {
+        teamMemberNodes = this.props.team.map(function (teamMember, index) {
+          return (
+            <TeamMember onDeleteMember={this.handleDelete}
+                        team={this.props.team}
+                        index={index}
+                        firstName={teamMember.first_name}
+                        lastName={teamMember.last_name}
+                        teamName={teamMember.team}
+                        location={teamMember.location}
+                        id={teamMember.id} />
+          );
+        }, this);
+        return (
+          <table className="teamMemberList">
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Team</th>
+              <th>Location</th>
+              <th>Edit</th>
+            </tr>
+            {teamMemberNodes}
+          </table>
+        );
+      }
+    });
+
+    var TeamMember = React.createClass({
+      handleDelete: function () {
+        if (confirm('Are you sure you want to delete this member?')) {
+          this.props.onDeleteMember(this.props.id, this.props.index);
+        }
+        return;
+      },
+      render: function () {
+        return (
+          <tr className="teamMember" id={this.props.id} ref="teamMember">
+            <td>{this.props.firstName}</td>
+            <td>{this.props.lastName}</td>
+            <td>{this.props.teamName}</td>
+            <td>{this.props.location}</td>
+            <td>
+              <button className="edit">Edit</button>
+              <button className="delete" onClick={this.handleDelete}>Delete</button>
+            </td>
+          </tr>
+        );
+      }
+    });
+
+    var TeamMemberForm = React.createClass({
+      render: function () {
+        return (
+          <form className="teamMemberForm">
+            <input type="text" placeholder="First Name" ref="firstName" />
+            <input type="text" placeholder="Last Name" ref="lastName" />
+            <input type="text" placeholder="Title" ref="title" />
+            <input type="text" placeholder="Team" ref="teamName" />
+            <input type="text" placeholder="Color (hex code)" ref="color" />
+            <input type="text" placeholder="Avatar URL" ref="image" />
+            <input type="text" placeholder="Location" ref="location" />
+            <input type="submit" value="Submit" />
+          </form>
+        );
+      }
+    });
+
+    React.render(
+      <TeamManager url="contacts" />,
+      document.getElementById('content')
+    );
+
+    </script>
+  </body>
+</html>
