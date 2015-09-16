@@ -9,6 +9,7 @@ api = Api(app)
 contacts = json.loads(open('contacts.json').read())
 
 app.add_url_rule('/', 'root', lambda: app.send_static_file('index.html'))
+app.add_url_rule('/admin', 'admin', lambda: app.send_static_file('admin.html'))
 
 contact_fields = {
     'first_name': fields.String,
