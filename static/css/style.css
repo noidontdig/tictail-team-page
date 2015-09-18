@@ -22,22 +22,73 @@ h1, h2, h3, h4 {
   padding: 0;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
 table {
   border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
 }
 
-tr:first-child {
-  background-color: #dddddd;
+tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
 }
 
-tr:hover {
-  background-color: #dddddd;
+th, td {
+  border: 1px solid #dddddd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+tr td:last-child {
+  overflow: visible;
+  white-space: normal;
+}
+
+th {
+  padding: 8px;
+}
+
+td {
+  padding: 6px 8px;
+}
+
+.button {
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 30px;
+  color: #777;
+  font-size: 12px;
+  line-height: 30px;
+  padding: 0 17px;
+  -webkit-transition: all .1s;
+  transition: all .1s;
+}
+
+.button:hover {
+  border-color: #cccccc;
+  color: #000000;
+}
+
+.button.primary {
+  border-color: #4d9eff;
+  color: #4d9eff;
+}
+
+.button.primary:hover {
+  border-color: #0074ff;
+  color: #0074ff;
+}
+
+.add, form {
+  margin-bottom: 30px;
+}
+
+.edit {
+  margin: 0 5px 2px 0;
+}
+
+.delete {
+  margin-top: 2px;
 }
 
 .admin #content {
@@ -50,6 +101,41 @@ tr:hover {
   padding: 0;
 }
 
+.hidden, label {
+  height: 1px;
+  left: -10000px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  width: 1px;
+}
+
+input[type="text"] {
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  font-size: 12px;
+  height: 40px;
+  margin: 0 10px 13px 0;
+  padding: 0 20px;
+  width: 41%;
+}
+
+.submit {
+  margin-right: 10px;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 li div, li img {
   display: none;
 }
@@ -58,5 +144,16 @@ li {
   height: 130px;
   width: 130px;
   float: left;
+}
+
+@media (max-width: 750px) {
+  .teamCell  {
+    display: none
+  }
+
+  input[type="text"] {
+    margin-right: 0px;
+    width: 87%;
+  }
 }
 
