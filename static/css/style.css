@@ -33,6 +33,10 @@ table {
   width: 100%;
 }
 
+thead {
+  border-bottom: 2px solid #dddddd;
+}
+
 tbody tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
@@ -133,6 +137,10 @@ input[type="text"] {
   color: #ff0000;
   font-size: 12px;
   margin-top: 0;
+}
+
+.error.api {
+  font-size: 16px;
 }
 
 ul {

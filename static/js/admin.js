@@ -12,7 +12,7 @@ var TeamManager = React.createClass({
       data: data,
       success: callback.bind(this),
       error: function (xhr, status, err) {
-        // TODO: better error handling
+        this.setState({hasAPIError: true});
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -62,21 +62,27 @@ var TeamManager = React.createClass({
   },
 
   showForm: function () {
-    this.setState({showForm: true, hasError: false}, function () {
+    this.setState({showForm: true, hasFormError: false}, function () {
       document.getElementById('first_name').focus();
     });
   },
 
   hideForm: function () {
-    this.setState({showForm: false, member: {}, hasError: false});
+    this.setState({showForm: false, member: {}, hasFormError: false});
   },
 
   handleError: function () {
-    this.setState({hasError: true});
+    this.setState({hasFormError: true});
   },
 
   getInitialState: function () {
-    return {team: [], member: {}, showForm: false, hasError: false};
+    return {
+      team: [],
+      member: {},
+      showForm: false,
+      hasFormError: false,
+      hasAPIError: false
+    };
   },
 
   componentDidMount: function () {
@@ -88,6 +94,7 @@ var TeamManager = React.createClass({
   render: function () {
     return (
       <div className="teamManager">
+        {this.state.hasAPIError ? <p className="error api">Invalid request. Please reload the page.</p> : null}
         <h1>Manage the Tictail team</h1>
         <button className="add button primary" onClick={this.handleAdd}>+ Add new member</button>
         {this.state.showForm ? <TeamMemberForm onFormError={this.handleError}
@@ -95,7 +102,7 @@ var TeamManager = React.createClass({
                                                onMemberSubmit={this.handleSubmit}
                                                onCancel={this.handleCancel}
                                                member={this.state.member}
-                                               hasError={this.state.hasError} />
+                                               hasError={this.state.hasFormError} />
                               : null}
 
         <TeamMemberList onEditMember={this.handleEdit}
