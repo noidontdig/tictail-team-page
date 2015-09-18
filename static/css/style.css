@@ -1,4 +1,4 @@
-body {
+.admin {
   background: #fff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
@@ -22,12 +22,9 @@ h1, h2, h3, h4 {
   padding: 0;
 }
 
-p, ul {
-  margin: 15px 0;
-}
-
 ul {
   list-style-type: none;
+  margin: 0;
   padding: 0;
 }
 
@@ -43,8 +40,23 @@ tr:hover {
   background-color: #dddddd;
 }
 
-#content {
+.admin #content {
   margin: 50px auto;
   max-width: 700px;
+}
+
+.team, .team #content {
+  margin: 0;
+  padding: 0;
+}
+
+li div, li img {
+  display: none;
+}
+
+li {
+  height: 130px;
+  width: 130px;
+  float: left;
 }
 

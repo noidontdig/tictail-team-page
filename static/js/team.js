@@ -33,9 +33,9 @@ var TeamDisplayer = React.createClass({
       );
     }, this);
     return (
-      <div className="teamDisplayer">
+      <ul className="teamDisplayer">
         {teamMemberNodes}
-      </div>
+      </ul>
     );
   }
 });
@@ -46,13 +46,13 @@ var TeamMember = React.createClass({
       backgroundColor: '#' + this.props.color
     };
     return (
-      <div className="teamMember" style={divStyle}>
+      <li className="teamMember" style={divStyle}>
         <div>{this.props.firstName} {this.props.lastName}</div>
         <div>{this.props.title}</div>
         <div>{this.props.teamName}</div>
         <div>{this.props.location}</div>
         <img src={this.props.image} />
-      </div>
+      </li>
     );
   }
 });
