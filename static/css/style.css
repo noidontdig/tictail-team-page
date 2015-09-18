@@ -7,19 +7,24 @@
   padding: 30px;
 }
 
-a {
-  color: #4183c4;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
 h1, h2, h3, h4 {
   font-weight: bold;
   margin: 0 0 15px;
   padding: 0;
+}
+
+header {
+  background-color: #fcc100;
+  padding: 10px 30px;
+  right: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+header h2 {
+  margin: 0;
+  text-align: right;
 }
 
 table {
