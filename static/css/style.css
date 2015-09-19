@@ -1,9 +1,20 @@
-.admin {
-  background: #fff;
+/*
+* Styles
+*/
+
+body {
+  background: #ffffff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.7;
   margin: 0;
+}
+
+/*
+* Admin Page
+*/
+
+.admin {
   padding: 30px;
 }
 
@@ -13,7 +24,7 @@ h1, h2, h3, h4 {
   padding: 0;
 }
 
-header {
+.admin header {
   background-color: #fcc100;
   padding: 10px 30px;
   right: 0;
@@ -22,7 +33,7 @@ header {
   width: 100%;
 }
 
-header h2 {
+.admin header h2 {
   margin: 0;
   text-align: right;
 }
@@ -105,11 +116,6 @@ td {
   max-width: 700px;
 }
 
-.team, .team #content {
-  margin: 0;
-  padding: 0;
-}
-
 .hidden, label {
   height: 1px;
   left: -10000px;
@@ -143,22 +149,6 @@ input[type="text"] {
   font-size: 16px;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-li div, li img {
-  display: none;
-}
-
-li {
-  height: 130px;
-  width: 130px;
-  float: left;
-}
-
 @media (max-width: 750px) {
   .teamCell  {
     display: none
@@ -168,5 +158,116 @@ li {
     margin-right: 0px;
     width: 87%;
   }
+}
+
+/*
+* Team Page
+*/
+
+.teamPage,
+.team header h1,
+.team h2 {
+  max-width: 800px;
+}
+
+.teamPage {
+  margin: 20px auto;
+}
+
+.team header {
+  background-color: #fcc100;
+}
+
+.team header h1 {
+  font-size: 5em;
+  margin: 0 auto;
+  padding: 5em 0;
+}
+
+.team h2 {
+  color: #fcc100;
+  font-size: 3em;
+  margin: 0 auto;
+  padding: 100px 0 10px 0;
+}
+
+.tictailerList {
+  float: left;
+  width: 100%;
+}
+
+.tictailer, .tictailer .overlay {
+  height: 138px;
+  width: 138px;
+}
+
+.tictailer .info {
+  height: 118px;
+  width: 118px;
+}
+
+.tictailer {
+  box-shadow: 0 0 7px 1px rgba(0,0,0, 0.05) inset;
+  cursor: pointer;
+  float: left;
+  margin: 0 20px 20px 0;
+  position: relative;
+}
+
+.tictailer .overlay, .tictailer .info {
+  opacity: 0;
+  left: 0;
+  position: absolute;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+}
+
+.tictailer .overlay {
+  background-color: #000;
+  top: 0;
+}
+
+.tictailer .info {
+  bottom: 0;
+  color: #ffffff;
+  font-weight: bold;
+  height: auto;
+  line-height: 1.4em;
+  padding: 10px 10px 7px 10px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tictailer .teamName {
+  color: #fcc100;
+}
+
+.tictailer:hover .overlay {
+  opacity: .6;
+}
+
+.tictailer:hover .info {
+  opacity: 1;
+}
+
+
+.chatContainer {
+  float: left;
+  margin-top: 500px;
+  width: 100%;
+}
+
+.avatar {
+  margin-top: 30px;
+  height: 100px;
+  width: 100px;
+}
+
+.line {
+  height: 30px;
+  width: 100%;
+}
+
+.input .message, .human .message {
+  float: right;
 }
 

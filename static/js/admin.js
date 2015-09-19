@@ -192,6 +192,7 @@ var TeamMemberForm = React.createClass({
       return;
     }
     this.props.onMemberSubmit();
+    return;
   },
   handleChange: function (event) {
     var editedMember = this.props.member;
@@ -202,6 +203,7 @@ var TeamMemberForm = React.createClass({
   handleCancel: function (event) {
     event.preventDefault();
     this.props.onCancel();
+    return;
   },
   render: function () {
     return (
