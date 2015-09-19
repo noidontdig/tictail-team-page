@@ -4,7 +4,9 @@
 
 var TeamPage = React.createClass({
   handleTictailerSelect: function (index) {
-    this.setState({tictailer: this.state.team[index]});
+    this.setState({tictailer: {}}, function () {
+      this.setState({tictailer: this.state.team[index]})
+    }.bind(this));
   },
   getInitialState: function () {
     return {team: [], tictailer: {}};
@@ -76,23 +78,37 @@ var Tictailer = React.createClass({
 });
 
 var ChatContainer = React.createClass({
-  showNextMessage: function () {
-    if (this.state.index >= this.state.messages.length) {
-      console.log('clearInterval');
-      clearInterval(this.state.timer);
+  startConversation: function () {
+    while (this.state.index < this.state.messages.length) {
+      var nextMessage = this.state.messages[this.state.index];
+      var newChat = this.state.chat;
+      if (this.state.index == 0) {
+        newChat.push({type: 'robot', text: 'Hi, I\'m ' + this.props.tictailer.first_name + '.'});
+      } else {
+        newChat.push(nextMessage);
+      }
+
+      if (nextMessage.type == 'robot') {
+        setTimeout(this.showNextMessage, 3000);
+      }
     }
-
+  },
+  showNextMessage: function () {
     var nextMessage = this.state.messages[this.state.index];
-
     if (!(nextMessage.type == 'robot')) {
       clearInterval(this.state.timer);
     }
 
     var newChat = this.state.chat;
-    newChat.push(this.state.messages[this.state.index]);
-    console.log(newChat);
+
+    if (this.state.index == 0) {
+      newChat.push({type: 'robot', text: 'Hi, I\'m ' + this.props.tictailer.first_name + '.'});
+    } else {
+      newChat.push(this.state.messages[this.state.index]);
+    }
+
     this.setState({chat: newChat, index: this.state.index + 1}, function () {
-      document.body.scrollTop = document.body.scrollHeight;
+      window.scrollTo(0,document.body.scrollHeight);
     });
   },
   handleResponseSubmit: function (message) {
@@ -157,9 +173,10 @@ var SpeechBubble = React.createClass({
   },
   render: function () {
     var bubbleClass = 'speechBubble line ' + (this.props.message.type == 'robot' ? 'robot' : 'human');
+    var animationClass = 'message animated ' + (this.props.message.type == 'robot' ? 'fadeInUp' : 'pulse');
     var bubbleDiv = this.props.message.type == 'input' ?
         <InputBubble onResponseSubmit={this.handleResponseSubmit} /> :
-        <div className="message">{this.props.message.text}</div>;
+        <div className={animationClass}>{this.props.message.text}</div>;
     return (
       <div className={bubbleClass}>
         {bubbleDiv}
@@ -174,10 +191,13 @@ var InputBubble = React.createClass({
     this.props.onResponseSubmit(React.findDOMNode(this.refs.input).value.trim());
     return;
   },
+  componentDidMount: function () {
+    document.getElementById('input').focus();
+  },
   render: function () {
     return (
-      <form className="inputBubble message" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Write a response..." ref="input" />
+      <form className="inputBubble message animated fadeInUp" onSubmit={this.handleSubmit}>
+        <input id="input" type="text" placeholder="Write a response..." ref="input" />
       </form>
     );
   }
