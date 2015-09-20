@@ -308,6 +308,7 @@ input[type="text"] {
   background-color: transparent;
   border: 0;
   box-shadow: none;
+  color: #ffffff;
   font-size: 24px;
   height: auto;
   margin: 0;
@@ -319,4 +320,3 @@ input[type="text"] {
 ::-webkit-input-placeholder {
   color: #80d8ff;
 }
-

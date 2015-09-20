@@ -5,7 +5,9 @@
 var TeamPage = React.createClass({
   handleTictailerSelect: function (index) {
     this.setState({tictailer: {}}, function () {
-      this.setState({tictailer: this.state.team[index]})
+      this.setState({tictailer: this.state.team[index]}, function() {
+        $('body').animate({ scrollTop: $(document).height() }, 1000);
+      });
     }.bind(this));
   },
   getInitialState: function () {
@@ -78,35 +80,22 @@ var Tictailer = React.createClass({
 });
 
 var ChatContainer = React.createClass({
-  startConversation: function () {
-    while (this.state.index < this.state.messages.length) {
-      var nextMessage = this.state.messages[this.state.index];
-      var newChat = this.state.chat;
-      if (this.state.index == 0) {
-        newChat.push({type: 'robot', text: 'Hi, I\'m ' + this.props.tictailer.first_name + '.'});
-      } else {
-        newChat.push(nextMessage);
-      }
-
-      if (nextMessage.type == 'robot') {
-        setTimeout(this.showNextMessage, 3000);
-      }
-    }
-  },
   showNextMessage: function () {
+    if (this.state.index >= this.state.messages.length) {
+      clearInterval(this.state.timer);
+      return;
+    }
     var nextMessage = this.state.messages[this.state.index];
     if (!(nextMessage.type == 'robot')) {
       clearInterval(this.state.timer);
     }
 
     var newChat = this.state.chat;
-
     if (this.state.index == 0) {
       newChat.push({type: 'robot', text: 'Hi, I\'m ' + this.props.tictailer.first_name + '.'});
     } else {
       newChat.push(this.state.messages[this.state.index]);
     }
-
     this.setState({chat: newChat, index: this.state.index + 1}, function () {
       window.scrollTo(0,document.body.scrollHeight);
     });
@@ -116,22 +105,14 @@ var ChatContainer = React.createClass({
     newChat.pop();
     newChat.push({type: 'human', text: message});
     this.setState({chat: newChat})
-    this.setState({timer: setInterval(this.showNextMessage, 3000)});
+    this.setState({timer: setInterval(this.showNextMessage, this.state.timerInterval)});
   },
   getInitialState: function () {
-    return {messages: [], chat: [], index: 0, timer: null};
+    return {messages: [], chat: [], index: 0, timer: null, timerInterval: 2000};
   },
   componentDidMount: function () {
-    this.setState({messages: [
-      {type: 'robot', text: 'Hey, how are you?'},
-      {type: 'robot', text: 'Its nice to meet you'},
-      {type: 'robot', text: 'Whats your name'},
-      {type: 'input'},
-      {type: 'robot', text: 'Thats a nice name!'},
-      {type: 'input'},
-      {type: 'robot', text: 'Woah stop it!'},
-    ]}, function () {
-      this.setState({timer: setInterval(this.showNextMessage, 3000)});
+    this.setState({messages: chatMessages}, function () {
+      this.setState({timer: setInterval(this.showNextMessage, this.state.timerInterval)});
     }.bind(this));
   },
   render: function () {
