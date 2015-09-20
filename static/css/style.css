@@ -10,6 +10,10 @@ body {
   margin: 0;
 }
 
+button, input[type="submit"] {
+  cursor: pointer;
+}
+
 /*
 * Admin Page
 */
@@ -262,9 +266,20 @@ input[type="text"] {
 .avatar {
   border-radius: 50%;
   box-shadow: 0 0 5px 1px rgba(0,0,0, 0.05) inset;
-  margin: 30px auto;
   height: 100px;
+  margin: 30px auto;
   width: 100px;
+}
+
+.fix-avatar .avatar {
+  bottom: 30px;
+  left: 50%;
+  margin: 0 0 0 -50px;
+  position: fixed;
+}
+
+.fix-avatar .chatContainer {
+  margin-bottom: 160px;
 }
 
 .line {
@@ -289,6 +304,8 @@ input[type="text"] {
   margin: 0 0 14px 0;
   line-height: 36px;
   display: inline-block;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
 }*/
 
 .human, .input, .input .message, .human .message {
@@ -309,6 +326,7 @@ input[type="text"] {
   border: 0;
   box-shadow: none;
   color: #ffffff;
+  /*color: #fcc100;*/
   font-size: 24px;
   height: auto;
   margin: 0;
@@ -317,6 +335,6 @@ input[type="text"] {
   width: auto;
 }
 
-::-webkit-input-placeholder {
+.message ::-webkit-input-placeholder {
   color: #80d8ff;
 }

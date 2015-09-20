@@ -6,7 +6,7 @@ var TeamPage = React.createClass({
   handleTictailerSelect: function (index) {
     this.setState({tictailer: {}}, function () {
       this.setState({tictailer: this.state.team[index]}, function() {
-        $('body').animate({ scrollTop: $(document).height() }, 1000);
+        $('html,body').animate({scrollTop: $(document).height()}, 1000);
       });
     }.bind(this));
   },
@@ -25,7 +25,6 @@ var TeamPage = React.createClass({
         this.setState({team: team});
       }.bind(this),
       error: function (xhr, status, err) {
-        // TODO: better error handling
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -86,7 +85,7 @@ var ChatContainer = React.createClass({
   showNextMessage: function () {
     if (this.state.index >= this.state.messages.length) {
       clearInterval(this.state.timer);
-      $('body').animate({scrollTop: $('h2').position().top}, 1000, 'swing', function () {
+      $('html,body').animate({scrollTop: $('h2').position().top}, 1000, 'swing', function () {
         this.props.onChatEnd();
       }.bind(this));
       return;
@@ -102,8 +101,9 @@ var ChatContainer = React.createClass({
     } else {
       newChat.push(this.state.messages[this.state.index]);
     }
+
     this.setState({chat: newChat, index: this.state.index + 1}, function () {
-      window.scrollTo(0,document.body.scrollHeight);
+     $('html,body').animate({scrollTop: $(document).height()}, 1e3);
     });
   },
   handleResponseSubmit: function (message) {
@@ -193,3 +193,24 @@ React.render(
   <TeamPage url="contacts" />,
   document.getElementById('content')
 );
+
+//
+// Animations
+//
+
+var lastScrollTop = 0;
+function scrollHandler (event) {
+  var scrollTop = $('body').scrollTop();
+  if (scrollTop > lastScrollTop) {
+    if (scrollTop + 950 >= $(document).height()) {
+      $('body').addClass('fix-avatar');
+      } else {
+      $('body').removeClass('fix-avatar');
+    }
+  } else {
+    $('body').removeClass('fix-avatar');
+  }
+  lastScrollTop = scrollTop;
+}
+
+$(window).on('scroll', scrollHandler);
