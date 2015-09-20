@@ -194,10 +194,19 @@ React.render(
   document.getElementById('content')
 );
 
+
+
+// =====================================
 //
-// Animations
+// Custom Animations
 //
 
+//
+// # Scroll Handler
+//
+// To make chat animations smooth, the avatar's position is fixed
+// when scrolled to the bottom.
+//
 var lastScrollTop = 0;
 function scrollHandler (event) {
   var scrollTop = $('body').scrollTop();
