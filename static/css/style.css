@@ -340,6 +340,63 @@ input[type="text"] {
   color: #666666;
 }
 
+@media (max-width: 900px) {
+  .teamPage, .team .text {
+    max-width: 650px;
+  }
+
+  .team header h1 {
+    font-size: 4em;
+  }
+}
+
+@media (max-width: 700px) {
+  .teamPage, .team .text {
+    max-width: 90%;
+  }
+
+  .team header .text {
+    padding: 50px 0;
+  }
+
+  .meet {
+    margin-top: 50px;
+  }
+
+  .team header h1, .team .text h2 {
+    font-size: 26px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .tictailer {
+    float: none;
+    margin: 20px auto;
+  }
+
+  .tictailer, .tictailer .overlay {
+    height: 300px;
+    width: 300px;
+  }
+
+  .tictailer .info {
+    width: 180px;
+  }
+
+  .message, .message input[type="text"] {
+    border-radius: 18px;
+    font-size: 17px;
+    line-height: 20px;
+    margin: 0 0 6px 0;
+    padding: 8px 12px;
+  }
+
+  .message input[type="text"] {
+    margin: 0;
+    padding: 0;
+  }
+
+}
+
 /*
 * Animations
 */
