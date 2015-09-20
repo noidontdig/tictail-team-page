@@ -30,4 +30,7 @@ var chatMessages = [
   {type: 'input'},
   {type: 'robot', text: 'Ok. But it didn\'t come from me.'},
   {type: 'robot', text: 'http://vimeo.com/dgewig'},
+  {type: 'robot', text: 'Anyways... It was a pleasure talking to you.'},
+  {type: 'robot', text: 'Til next time ;)'},
+  {type: 'robot', text: 'Hejdå!'},
 ];

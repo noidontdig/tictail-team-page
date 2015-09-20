@@ -10,6 +10,9 @@ var TeamPage = React.createClass({
       });
     }.bind(this));
   },
+  handleChatEnd: function () {
+    this.setState({tictailer: {}});
+  },
   getInitialState: function () {
     return {team: [], tictailer: {}};
   },
@@ -31,7 +34,7 @@ var TeamPage = React.createClass({
     return (
       <div className="teamPage">
         <TictailerList onTictailerSelect={this.handleTictailerSelect} team={this.state.team} />
-        {this.state.tictailer.id ? <ChatContainer tictailer={this.state.tictailer} /> : null}
+        {this.state.tictailer.id ? <ChatContainer onChatEnd={this.handleChatEnd} tictailer={this.state.tictailer} /> : null}
       </div>
     );
   }
@@ -83,6 +86,9 @@ var ChatContainer = React.createClass({
   showNextMessage: function () {
     if (this.state.index >= this.state.messages.length) {
       clearInterval(this.state.timer);
+      $('body').animate({scrollTop: $('h2').position().top}, 1000, 'swing', function () {
+        this.props.onChatEnd();
+      }.bind(this));
       return;
     }
     var nextMessage = this.state.messages[this.state.index];
@@ -104,8 +110,7 @@ var ChatContainer = React.createClass({
     var newChat = this.state.chat;
     newChat.pop();
     newChat.push({type: 'human', text: message});
-    this.setState({chat: newChat})
-    this.setState({timer: setInterval(this.showNextMessage, this.state.timerInterval)});
+    this.setState({chat: newChat, timer: setInterval(this.showNextMessage, this.state.timerInterval)});
   },
   getInitialState: function () {
     return {messages: [], chat: [], index: 0, timer: null, timerInterval: 2000};
