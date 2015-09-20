@@ -287,9 +287,9 @@ input[type="text"] {
 }
 
 .message {
-  background-color: #e3e2df;
+  background-color: #fcc100;
   border-radius: 32px;
-  color: #393939;
+  color: #000;
   display: inline-block;
   line-height: 36px;
   font-size: 24px;
@@ -297,36 +297,21 @@ input[type="text"] {
   margin: 0 0 14px 0;
 }
 
-/*.message {
-  color: #000;
-  font-size: 26px;
-  padding: 0 38px;
-  margin: 0 0 14px 0;
-  line-height: 36px;
-  display: inline-block;
-  font-weight: bold;
-  -webkit-font-smoothing: antialiased;
-}*/
-
 .human, .input, .input .message, .human .message {
   float: right;
 }
 
 .human .message {
-  background-color: #00b0ff;
-  color: #ffffff;
+  background-color: #000;
+  border: 0;
+  color: #fff;
 }
-
-/*.human .message {
-  color: #fcc100;
-}*/
 
 .message input[type="text"] {
   background-color: transparent;
   border: 0;
   box-shadow: none;
   color: #ffffff;
-  /*color: #fcc100;*/
   font-size: 24px;
   height: auto;
   margin: 0;
@@ -336,5 +321,5 @@ input[type="text"] {
 }
 
 .message ::-webkit-input-placeholder {
-  color: #80d8ff;
+  color: #666666;
 }

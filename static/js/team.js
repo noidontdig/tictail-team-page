@@ -202,7 +202,7 @@ var lastScrollTop = 0;
 function scrollHandler (event) {
   var scrollTop = $('body').scrollTop();
   if (scrollTop > lastScrollTop) {
-    if (scrollTop + 950 >= $(document).height()) {
+    if (scrollTop >= 3000 && scrollTop + 950 >= $(document).height()) {
       $('body').addClass('fix-avatar');
       } else {
       $('body').removeClass('fix-avatar');
