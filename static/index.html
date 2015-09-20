@@ -10,14 +10,22 @@
     <script src="static/vendor/jquery/dist/jquery.min.js"></script>
     <script src="static/vendor/react/react.min.js"></script>
     <script src="static/vendor/react/JSXTransformer.js"></script>
+    <script src="static/vendor/wow/dist/wow.min.js"></script>
   </head>
   <body class="team">
     <header>
-      <h1>Meet the Tictail team.</h1>
+      <div class="text">
+        <h1 class="animated fadeInLeft">Meet the Tictail team.</h1>
+        <p class="animated fadeInLeft">The Tictail team is made of 46 passionate people who love what they do. We build Tictail with the purpose of helping anyone who had a great product, to easily sell online. We want indie brands and retailers to be able to do this in a way that builds their brand, and makes them proud of their online store.</p>
+      </div>
     </header>
-    <h2>Who would you like to talk to?</h2>
-    <div id="content">
+    <div class="text meet">
+      <h2 class="wow fadeInLeft">Who would you like to meet?</h2>
     </div>
+    <div id="content"></div>
+    <script>
+      new WOW().init();
+    </script>
     <script src="static/js/messages.js"></script>
     <script type="text/jsx;harmony=true" src="static/js/team.js"></script>
   </body>

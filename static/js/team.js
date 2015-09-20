@@ -52,7 +52,7 @@ var TictailerList = React.createClass({
       );
     }, this);
     return (
-      <div className="tictailerList">
+      <div className="tictailerList wow fadeIn">
         {tictailerNodes}
       </div>
     );
@@ -113,7 +113,7 @@ var ChatContainer = React.createClass({
     this.setState({chat: newChat, timer: setInterval(this.showNextMessage, this.state.timerInterval)});
   },
   getInitialState: function () {
-    return {messages: [], chat: [], index: 0, timer: null, timerInterval: 2000};
+    return {messages: [], chat: [], index: 0, timer: null, timerInterval: 1500};
   },
   componentDidMount: function () {
     this.setState({messages: chatMessages}, function () {
@@ -202,7 +202,7 @@ var lastScrollTop = 0;
 function scrollHandler (event) {
   var scrollTop = $('body').scrollTop();
   if (scrollTop > lastScrollTop) {
-    if (scrollTop >= 3000 && scrollTop + 950 >= $(document).height()) {
+    if (scrollTop >= 3000 && scrollTop + 1000 >= $(document).height()) {
       $('body').addClass('fix-avatar');
       } else {
       $('body').removeClass('fix-avatar');

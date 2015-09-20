@@ -168,9 +168,7 @@ input[type="text"] {
 * Team Page
 */
 
-.teamPage,
-.team header h1,
-.team h2 {
+.teamPage, .team .text {
   max-width: 800px;
 }
 
@@ -182,22 +180,40 @@ input[type="text"] {
   background-color: #fcc100;
 }
 
-.team header h1 {
-  font-size: 5em;
+.team header .text {
+  padding: 350px 0 200px 0;
   margin: 0 auto;
-  padding: 5em 0;
 }
 
-.team h2 {
+.team header h1 {
+  font-size: 5em;
+  margin: 0;
+  -webkit-animation-delay: .3s;
+}
+
+.team header p {
+  font-size: 19px;
+  max-width: 615px;
+  -webkit-animation-delay: .6s;
+}
+
+.meet {
+  margin: 150px auto 50px auto;
+}
+
+.meet h2 {
   color: #fcc100;
   font-size: 3em;
-  margin: 0 auto;
-  padding: 100px 0 10px 0;
+  margin-bottom: -20px;
+  padding: 0;
+  -webkit-animation-delay: .3s;
 }
 
 .tictailerList {
   float: left;
+  margin-bottom: 100px;
   width: 100%;
+  -webkit-animation-delay: .6s;
 }
 
 .tictailer, .tictailer .overlay {
@@ -222,8 +238,8 @@ input[type="text"] {
   opacity: 0;
   left: 0;
   position: absolute;
-  transition: all .3s;
-  -webkit-transition: all .3s;
+  transition: all .2s;
+  -webkit-transition: all .2s;
 }
 
 .tictailer .overlay {
@@ -322,4 +338,42 @@ input[type="text"] {
 
 .message ::-webkit-input-placeholder {
   color: #666666;
+}
+
+/*
+* Animations
+*/
+
+@-webkit-keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(-50px, 0, 0);
+    transform: translate3d(-50px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(-50px, 0, 0);
+    transform: translate3d(-50px, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.fadeInLeft {
+  -webkit-animation-name: fadeInLeft;
+  -webkit-animation-duration: .4s;
+  animation-name: fadeInLeft;
 }
