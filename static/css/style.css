@@ -227,6 +227,7 @@ input[type="text"] {
 }
 
 .tictailer {
+  background-color: #fcc100;
   box-shadow: 0 0 7px 1px rgba(0,0,0, 0.05) inset;
   cursor: pointer;
   float: left;
@@ -280,6 +281,7 @@ input[type="text"] {
 }
 
 .avatar {
+  background-color: #fcc100;
   border-radius: 50%;
   box-shadow: 0 0 5px 1px rgba(0,0,0, 0.05) inset;
   height: 100px;
