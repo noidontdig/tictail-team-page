@@ -1,9 +1,19 @@
-/**
-* Team page
-*/
+//
+// # Team Page
+//
+//  An impressive listing page with a great deal of *wow* factor
+//
 
+//
+// ## TeamPage
+//
+// Holds state for the app:
+// * **team**, the list of team members to display
+// * **tictailer**, the team member the user selected to talk to
+//
 var TeamPage = React.createClass({
   handleTictailerSelect: function (index) {
+    // Clear `tictailer` before setting it again so the chat resets
     this.setState({tictailer: {}}, function () {
       this.setState({tictailer: this.state.team[index]}, function() {
         $('html,body').animate({scrollTop: $(document).height()}, 1000);
@@ -16,6 +26,7 @@ var TeamPage = React.createClass({
   getInitialState: function () {
     return {team: [], tictailer: {}};
   },
+  // Load team member list from API.
   componentDidMount: function () {
     $.ajax({
       url: this.props.url,
@@ -33,12 +44,18 @@ var TeamPage = React.createClass({
     return (
       <div className="teamPage">
         <TictailerList onTictailerSelect={this.handleTictailerSelect} team={this.state.team} />
+        // Only show chat if a tictailer has been selected
         {this.state.tictailer.id ? <ChatContainer onChatEnd={this.handleChatEnd} tictailer={this.state.tictailer} /> : null}
       </div>
     );
   }
 });
 
+//
+// ## TictailerList
+//
+// Displays the list of Tictailers.
+//
 var TictailerList = React.createClass({
   handleTictailerSelect: function (index) {
     this.props.onTictailerSelect(index);
@@ -59,6 +76,11 @@ var TictailerList = React.createClass({
   }
 });
 
+//
+// ## Tictailer
+//
+// Displays a team member.
+//
 var Tictailer = React.createClass({
   handleClick: function () {
     this.props.onTictailerSelect(this.props.index);
@@ -81,6 +103,14 @@ var Tictailer = React.createClass({
   }
 });
 
+//
+// ## ChatContainer
+//
+// Displays and holds state for the chat:
+// * **messages**, list of messages to read into the chat
+// * **chat**, actual list of messages displayed by the chat
+// * **index**, index of current message in `messages`
+//
 var ChatContainer = React.createClass({
   showNextMessage: function () {
     if (this.state.index >= this.state.messages.length) {
@@ -113,12 +143,16 @@ var ChatContainer = React.createClass({
     this.setState({chat: newChat, timer: setInterval(this.showNextMessage, this.state.timerInterval)});
   },
   getInitialState: function () {
-    return {messages: [], chat: [], index: 0, timer: null, timerInterval: 1500};
+    return {messages: [], chat: [], index: 0};
   },
   componentDidMount: function () {
+    this.__timerInterval = 1500;
     this.setState({messages: chatMessages}, function () {
-      this.setState({timer: setInterval(this.showNextMessage, this.state.timerInterval)});
+      this.__timer = setInterval(this.showNextMessage, this.__timerInterval)
     }.bind(this));
+  },
+  componentWillUnmount: function() {
+    clearTimeout(this._timeout);
   },
   render: function () {
     var avatarStyle = {

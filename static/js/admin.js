@@ -1,8 +1,22 @@
-/**
-* Admin page
-*/
+//
+// # Admin Page
+//
+// A client side admin system that talks to the Tictail
+// API where one could add, remove and update contacts.
+//
 
+//
+// ## TeamManager
+//
+// Holds state for the app:
+// * **team**, list of team members
+// * **member**, current member to edit/add
+// * **showForm**, if `true`, shows edit/add member form
+// * **hasFormError**, whether or not there is a validation error on the form
+// * **hasAPIError**, wether or not the API request returned an error
+//
 var TeamManager = React.createClass({
+  // Make API calls
   apiRequest: function (url, type, callback, data) {
     $.ajax({
       url: url,
@@ -18,6 +32,7 @@ var TeamManager = React.createClass({
     });
   },
 
+  // Delete a team member
   handleDelete: function (id, index) {
     var team = this.state.team;
     team.splice(index, 1);
@@ -25,13 +40,15 @@ var TeamManager = React.createClass({
     this.apiRequest(this.props.url + '/' + id, 'DELETE', function () {});
   },
 
+  // Handle clicking the 'Edit' button
   handleEdit: function (index) {
     var member = this.state.team[index];
     this.setState({member: member});
     this.showForm();
   },
 
-  // Handles both creating and updating a team member.
+  // Create / Update a team member
+  // Handles form submission for adding and editing a team member
   handleSubmit: function () {
     var isNew = !this.state.member.id;
     var url =  this.props.url + (isNew ? '' : '/' + this.state.member.id);
@@ -48,10 +65,12 @@ var TeamManager = React.createClass({
     this.apiRequest(url, type, callback, this.state.member);
   },
 
+  // Updates `member` on field change
   handleFieldChange: function (member) {
     this.setState({member: member});
   },
 
+  // Handle clicking the 'Add' button
   handleAdd: function () {
     this.setState({member: {}});
     this.showForm();
@@ -85,6 +104,7 @@ var TeamManager = React.createClass({
     };
   },
 
+  // Loads team members from API
   componentDidMount: function () {
     this.apiRequest(this.props.url, 'GET', function (data) {
       this.setState({team: data});
@@ -113,6 +133,11 @@ var TeamManager = React.createClass({
   }
 });
 
+//
+// ## TeamMemberList
+//
+// Table that displays all the team members.
+//
 var TeamMemberList = React.createClass({
   handleDelete: function (id, index) {
     this.props.onDeleteMember(id, index);
@@ -152,6 +177,11 @@ var TeamMemberList = React.createClass({
   }
 });
 
+//
+// ## TeamMember
+//
+// Displays a team member.
+//
 var TeamMember = React.createClass({
   handleDelete: function () {
     if (confirm('Are you sure you want to delete this member?')) {
@@ -178,6 +208,11 @@ var TeamMember = React.createClass({
   }
 });
 
+//
+// ## TeamMemberForm
+//
+// Add/Edit team member form.
+//
 var TeamMemberForm = React.createClass({
   handleSubmit: function (event) {
     event.preventDefault();
