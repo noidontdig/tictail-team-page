@@ -1,6 +1,6 @@
-/*
-* Chat Messages
-*/
+//
+// Chat messages
+//
 
 var chatMessages = [
   {type: 'robot', text: 'Hey, how are you?'},

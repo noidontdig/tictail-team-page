@@ -236,7 +236,12 @@ var SpeechBubble = React.createClass({
 var InputBubble = React.createClass({
   handleSubmit: function (event) {
     event.preventDefault();
-    this.props.onResponseSubmit(React.findDOMNode(this.refs.input).value.trim());
+    var answer = React.findDOMNode(this.refs.input).value.trim();
+    if (!answer.length) {
+      $('.inputBubble').removeClass('fadeInUp').addClass('animated shake');
+      return;
+    }
+    this.props.onResponseSubmit(answer);
     return;
   },
   componentDidMount: function () {
