@@ -41,10 +41,10 @@ var TeamPage = React.createClass({
     });
   },
   render: function () {
+    // Only show chat if a tictailer has been selected
     return (
       <div className="teamPage">
         <TictailerList onTictailerSelect={this.handleTictailerSelect} team={this.state.team} />
-        // Only show chat if a tictailer has been selected
         {this.state.tictailer.id ? <ChatContainer onChatEnd={this.handleChatEnd} tictailer={this.state.tictailer} /> : null}
       </div>
     );
@@ -107,32 +107,43 @@ var Tictailer = React.createClass({
 // ## ChatContainer
 //
 // Displays and holds state for the chat:
-// * **messages**, list of messages to read into the chat
+//
 // * **chat**, actual list of messages displayed by the chat
-// * **index**, index of current message in `messages`
+//
+// Instance variables:
+// * **messages**, list of messages to read into the chat
+// * **index**, index of next message to display
+// * **timer**, timer for the chat
+// * **timerInterval**, speed of tictailer's responses
 //
 var ChatContainer = React.createClass({
+  // Handles showing the next message in the chat
   showNextMessage: function () {
-    if (this.state.index >= this.state.messages.length) {
-      clearInterval(this.state.timer);
+    // If the chat is over, hide chat and scroll to top
+    if (this.index >= this.messages.length) {
+      clearInterval(this.timer);
       $('html,body').animate({scrollTop: $('h2').position().top}, 1000, 'swing', function () {
         this.props.onChatEnd();
       }.bind(this));
       return;
     }
-    var nextMessage = this.state.messages[this.state.index];
+    var nextMessage = this.messages[this.index];
+    // Pause timer if it's the user's turn to talk
     if (!(nextMessage.type == 'robot')) {
-      clearInterval(this.state.timer);
+      clearInterval(this.timer);
     }
-
     var newChat = this.state.chat;
-    if (this.state.index == 0) {
+    // Custom first message
+    // Would have liked a more graceful way to handle this but React
+    // doesn't support string interpolation and I didn't have time to implement.
+    if (this.index == 0) {
       newChat.push({type: 'robot', text: 'Hi, I\'m ' + this.props.tictailer.first_name + '.'});
     } else {
-      newChat.push(this.state.messages[this.state.index]);
+      newChat.push(this.messages[this.index]);
     }
 
-    this.setState({chat: newChat, index: this.state.index + 1}, function () {
+    this.index += 1;
+    this.setState({chat: newChat}, function () {
      $('html,body').animate({scrollTop: $(document).height()}, 1e3);
     });
   },
@@ -140,19 +151,20 @@ var ChatContainer = React.createClass({
     var newChat = this.state.chat;
     newChat.pop();
     newChat.push({type: 'human', text: message});
-    this.setState({chat: newChat, timer: setInterval(this.showNextMessage, this.state.timerInterval)});
+    this.setState({chat: newChat});
+    this.timer = setInterval(this.showNextMessage, this.timerInterval);
   },
   getInitialState: function () {
-    return {messages: [], chat: [], index: 0};
+    return {chat: []};
   },
   componentDidMount: function () {
-    this.__timerInterval = 1500;
-    this.setState({messages: chatMessages}, function () {
-      this.__timer = setInterval(this.showNextMessage, this.__timerInterval)
-    }.bind(this));
+    this.index = 0;
+    this.timerInterval = 1500;
+    this.messages = chatMessages;
+    this.timer = setInterval(this.showNextMessage, this.timerInterval);
   },
   componentWillUnmount: function() {
-    clearTimeout(this._timeout);
+    clearTimeout(this._timer);
   },
   render: function () {
     var avatarStyle = {
@@ -169,6 +181,11 @@ var ChatContainer = React.createClass({
   }
 });
 
+//
+// ## SpeechBubbleList
+//
+// Displays the list of messages as speech bubbles.
+//
 var SpeechBubbleList = React.createClass({
   handleResponseSubmit: function (message) {
     this.props.onResponseSubmit(message);
@@ -187,6 +204,12 @@ var SpeechBubbleList = React.createClass({
   }
 });
 
+//
+// ## SpeechBubble
+//
+// Displays a message as a speech bubble or an input bubble if
+// it's the user's turn to talk.
+//
 var SpeechBubble = React.createClass({
   handleResponseSubmit: function (message) {
     this.props.onResponseSubmit(message);
@@ -205,6 +228,11 @@ var SpeechBubble = React.createClass({
   }
 });
 
+//
+// ## InputBubble
+//
+// Displays the input form to get the user's answers.
+//
 var InputBubble = React.createClass({
   handleSubmit: function (event) {
     event.preventDefault();
@@ -227,7 +255,6 @@ React.render(
   <TeamPage url="contacts" />,
   document.getElementById('content')
 );
-
 
 
 // =====================================
