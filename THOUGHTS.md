@@ -45,4 +45,4 @@ I wanted this project to reflect the current design of Tictail, so I used the Ti
 
 I had a lot of fun with this challenge :) I hope you enjoy my version of Tictail's Team page!
 
-![pus](static/yasqueen.gif)
+![pus](http://25.media.tumblr.com/a879fb5a32016c1928cb2d1e12fc3e25/tumblr_mi8itvsdOt1rehxnwo1_500.gif)
