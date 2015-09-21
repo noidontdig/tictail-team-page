@@ -13,7 +13,7 @@ I wanted this project to reflect the current design of Tictail, so I used the Ti
 
 * Used same form for adding and editing a member to keep things simple.
 * Built with accessibility practices in mind.
-* Built with responsiveness in mind (mobile + desktop view.
+* Built with responsiveness in mind (mobile + desktop view).
 * If I had more time, I would have added:
   * Sorting the fields in the table
   * Input validation on individual fields in the add/edit form
